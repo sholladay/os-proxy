@@ -1,0 +1,22 @@
+{
+  "name": "os-proxy",
+  "version": "0.0.1",
+  "description": "Manage system-wide proxy settings at the OS level.",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "keywords": [
+    "OS",
+    "network",
+    "proxy",
+    "configuration",
+    "config"
+  ],
+  "author": "Seth Holladay",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "shelljs": "^0.3.0",
+    "split-lines": "^1.0.0"
+  }
+}

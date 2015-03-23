@@ -1,0 +1,99 @@
+# This file is used to configure how git behaves when moving data between its database and your working directory.
+
+# Ensure native line endings for these...
+
+# Source code.
+*.svg    text
+*.json   text
+*.js     text
+*.css    text
+*.html   text  diff=html
+*.htm    text  diff=html
+*.xht    text  diff=html
+*.xhtml  text  diff=html
+*.xml    text  diff=html
+*.py     text  diff=python
+*.java   text  diff=java
+*.rb     text  diff=ruby
+*.pl     text  diff=perl
+*.sh     text
+*.bat    text
+*.sql    text
+*.ini    text
+*.inc    text
+
+# Templates and lists.
+*.mustache    text
+*.handlebars  text
+*.hbs         text
+*.hbt         text
+*.jade        text
+*.haml        text
+*.dot         text
+*.tmpl        text
+*.template    text
+*.csv         text
+
+# Documentation.
+*.md          text
+*.MD          text
+*.txt         text
+*.TXT         text
+*.doc         diff
+*.DOC         diff
+*.docx        diff
+*.DOCX        diff
+*.dot         diff
+*.DOT         diff
+*.rtf         diff
+*.RTF         diff
+*.pdf         diff
+*.PDF         diff
+CONTRIBUTING  text
+CONTRIBUTORS  text
+README        text
+LICENSE       text
+LICENSES      text
+AUTHOR        text
+AUTHORS       text
+
+# Configuration files.
+.gitignore      text
+.gitattributes  text
+.jshintrc       text
+.jscsrc         text
+.jshintignore   text
+.csslintrc      text
+.editorconfig   text
+*.npmignore     text
+*.bowerrc       text
+.slugignore     text
+Procfile        text
+.htaccess       text
+
+# Leave line endings alone for these...
+
+# Compiled code and system files.
+*.dll  binary
+*.so   binary
+*.war  binary
+
+# Multimedia and compressed storage.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.ICO   binary
+*.mov   binary
+*.MOV   binary
+*.mp4   binary
+*.mp3   binary
+*.flv   binary
+*.fla   binary
+*.swf   binary
+*.gz    binary
+*.zip   binary
+*.7z    binary
+*.ttf   binary
+*.pyc   binary
