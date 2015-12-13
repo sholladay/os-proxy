@@ -8,7 +8,7 @@ Manage system-wide proxy settings at the OS level.
 
 **Documentation**: [sholladay.github.io/os-proxy](https://sholladay.github.io/os-proxy "Project documentation for os-proxy and its API.")
 
-**Version**: `0.1.0`
+**Version**: `0.2.0`
 
 ## Installation
 ````sh
@@ -47,22 +47,23 @@ osProxy(
 );
 ````
 
-Because proxies can also be set through system menus, `osProxy` has been made aware of the platform-specific configuration store and knows how to monitor its changes at the file system level. All of that is abstracted away into opt-in [events](https://nodejs.org/api/events.html "Documentation for EventEmitter.").
+Because proxies can also be set through system menus, `osProxy` has been made aware of the platform-specific configuration store and knows how to monitor its changes at the file system level. All of that is abstracted away into opt-in [signals](https://github.com/millermedeiros/js-signals/wiki/Comparison-between-different-Observer-Pattern-implementations "Documentation for signals.").
 
 ````javascript
-osProxy.watch();  // begin monitoring the config store
-osProxy.on(
-    'change',
-    function (path) {
+// Register a listener for config store changes.
+osProxy.changed.always(
+    function (event) {
         console.log(
-            'Someone changed the proxy settings at:', path,
+            'Someone changed the proxy settings at:', event.path,
             'That is where', process.platform, 'keeps them.'
         );
     }
 )
+// Begin monitoring the config store.
+osProxy.watch();
 ````
 
-It's just as easy to stop monitoring the config store.
+It is just as easy to stop monitoring the config store.
 ````javascript
 osProxy.unwatch();
 ````
