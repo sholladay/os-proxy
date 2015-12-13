@@ -2,10 +2,25 @@
   "name": "os-proxy",
   "version": "0.1.0",
   "description": "Manage system-wide proxy settings at the OS level.",
+  "homepage": "https://github.com/solladay/os-proxy",
+  "author": "Seth Holladay",
   "main": "index.js",
   "scripts": {
     "test": "grunt test"
   },
+  "engines": {
+    "node": "^4.1.2",
+    "npm": "^3.3.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sholladay/os-proxy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/solladay/os-proxy/issues",
+    "email": "bugs@seth-holladay.com"
+  },
+  "license": "MPL-2.0",
   "keywords": [
     "OS",
     "network",
@@ -13,13 +28,12 @@
     "configuration",
     "config"
   ],
-  "author": "Seth Holladay",
-  "license": "MPL-2.0",
   "dependencies": {
-    "bluebird": "2.9.24",
-    "chokidar": "1.0.1",
-    "dangit": "0.2.2",
-    "shelljs": "0.3.0",
-    "yamljs": "0.2.1"
+    "adverb-signals": "1.0.0",
+    "bluebird": "3.0.6",
+    "chokidar": "1.4.1",
+    "dangit": "0.2.3",
+    "require-dir": "0.3.0",
+    "yamljs": "0.2.4"
   }
 }
