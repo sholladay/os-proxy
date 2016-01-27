@@ -6,9 +6,7 @@ Manage system-wide proxy settings at the OS level.
  - Uses native tools for managing config.
  - Can monitor changes from the outside.
 
-**Documentation**: [sholladay.github.io/os-proxy](https://sholladay.github.io/os-proxy "Project documentation for os-proxy and its API.")
-
-**Version**: `0.2.0`
+**Version**: `0.2.1`
 
 ## Installation
 ````sh
@@ -25,40 +23,45 @@ var osProxy = require('os-proxy');
 Set the system proxy.
 ````javascript
 // This is a shortcut to osProxy.set(...);
-osProxy(
-    {  // proxy configuration
-        hostname : 'example.com'.
-        port     : 1234
-    }
-);
+osProxy({
+    // Proxy configuration.
+    hostname : 'example.com'.
+    port     : 1234
+});
 ````
 
 **Tip**: This is a [`url.format()`](https://nodejs.org/api/url.html#url_url_format_urlobj "API documentation for the url.format method.") compatible object.
 
 The main `osProxy` methods use [Promises/A+](https://promisesaplus.com/ "Specification for the Promises/A+ standard.") for clean, asynchronous behavior.
 ````javascript
-osProxy(
-    {host: 'example.com:1234'}
-)
-.then(
-    function () {
-        console.log('Proxy onfiguration has finished saving.');
-    }
-);
+osProxy.set({
+    host : 'example.com:1234'
+})
+.then(() => {
+    console.log('Proxy onfiguration has finished saving.');
+});
+````
+
+At any time, you may retrieve the current proxy configuration.
+````javascript
+osProxy.get({
+    device : 'Wi-Fi'
+})
+.then((config) => {
+    console.log('Proxy config:', config);
+})
 ````
 
 Because proxies can also be set through system menus, `osProxy` has been made aware of the platform-specific configuration store and knows how to monitor its changes at the file system level. All of that is abstracted away into opt-in [signals](https://github.com/millermedeiros/js-signals/wiki/Comparison-between-different-Observer-Pattern-implementations "Documentation for signals.").
 
 ````javascript
 // Register a listener for config store changes.
-osProxy.changed.always(
-    function (event) {
-        console.log(
-            'Someone changed the proxy settings at:', event.path,
-            'That is where', process.platform, 'keeps them.'
-        );
-    }
-)
+osProxy.changed.always((event) => {
+    console.log(
+        'Someone changed the proxy settings at:', event.path,
+        'That is where', process.platform, 'keeps them.'
+    );
+});
 // Begin monitoring the config store.
 osProxy.watch();
 ````
