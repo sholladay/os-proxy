@@ -2,38 +2,44 @@
   "name": "os-proxy",
   "version": "0.2.1",
   "description": "Manage system-wide proxy settings at the OS level.",
-  "homepage": "https://github.com/solladay/os-proxy",
-  "author": "Seth Holladay",
+  "homepage": "https://github.com/sholladay/os-proxy",
   "main": "index.js",
-  "scripts": {
-    "test": "grunt test"
+  "author": {
+    "name": "Seth Holladay",
+    "url": "http://seth-holladay.com"
   },
-  "engines": {
-    "node": "^4.1.2",
-    "npm": "^3.3.5"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:sholladay/os-proxy.git"
   },
   "bugs": {
-    "url": "https://github.com/solladay/os-proxy/issues",
+    "url": "https://github.com/sholladay/os-proxy/issues",
     "email": "bugs@seth-holladay.com"
   },
   "license": "MPL-2.0",
+  "directories": {
+    "lib": "./lib"
+  },
+  "files": [
+    "lib",
+    "index.js"
+  ],
+  "dependencies": {
+    "adverb-signals": "1.0.0",
+    "bluebird": "3.3.5",
+    "chokidar": "1.4.3",
+    "dangit": "0.2.3",
+    "require-dir": "0.3.0",
+    "yamljs": "0.2.7"
+  },
   "keywords": [
     "OS",
     "network",
     "proxy",
     "configuration",
     "config"
-  ],
-  "dependencies": {
-    "adverb-signals": "1.0.0",
-    "bluebird": "3.0.6",
-    "chokidar": "1.4.1",
-    "dangit": "0.2.3",
-    "require-dir": "0.3.0",
-    "yamljs": "0.2.4"
-  }
+  ]
 }
