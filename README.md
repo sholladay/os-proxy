@@ -1,14 +1,15 @@
 # os-proxy
 
-Manage system-wide proxy settings at the OS level.
+> Manage system-wide proxy settings.
 
- - Clean, asynchronous API with events and promises.
- - Uses native tools for managing config.
- - Can monitor changes from the outside.
+## Why?
 
-**Version**: `0.2.1`
+ - Cross-platform behavior.
+ - Uses native APIs for managing config.
+ - Can monitor external changes via events.
 
-## Installation
+## Install
+
 ````sh
 npm install os-proxy --save
 ````
@@ -17,25 +18,18 @@ npm install os-proxy --save
 
 Get it into your program.
 ````javascript
-var osProxy = require('os-proxy');
+const osProxy = require('os-proxy');
 ````
 
 Set the system proxy.
-````javascript
-// This is a shortcut to osProxy.set(...);
-osProxy({
-    // Proxy configuration.
-    hostname : 'example.com'.
-    port     : 1234
-});
-````
 
 **Tip**: This is a [`url.format()`](https://nodejs.org/api/url.html#url_url_format_urlobj "API documentation for the url.format method.") compatible object.
 
-The main `osProxy` methods use [Promises/A+](https://promisesaplus.com/ "Specification for the Promises/A+ standard.") for clean, asynchronous behavior.
 ````javascript
 osProxy.set({
-    host : 'example.com:1234'
+    // Proxy configuration.
+    hostname : 'example.com'.
+    port     : 1234
 })
 .then(() => {
     console.log('Proxy onfiguration has finished saving.');
@@ -84,7 +78,7 @@ osProxy.unwatch();
 | `unwatch` | Path(s)               | Watcher (singleton)    | Stop monitoring the proxy config store.          |
 
 ## Contributing
-See our [contribution guidelines](https://github.com/sholladay/os-proxy/blob/master/CONTRIBUTING.md "The guidelines for being involved in this project.") for mode details.
+See our [contributing guidelines](https://github.com/sholladay/os-proxy/blob/master/CONTRIBUTING.md "The guidelines for being involved in this project.") for more details.
 
 1. [Fork it](https://github.com/sholladay/os-proxy/fork).
 2. Create your feature branch: `git checkout -b my-new-feature`
