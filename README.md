@@ -10,22 +10,22 @@
 
 ## Install
 
-````sh
+```sh
 npm install os-proxy --save
-````
+```
 
 ## Usage
 
 Get it into your program.
-````javascript
+```javascript
 const osProxy = require('os-proxy');
-````
+```
 
 Set the system proxy.
 
 **Tip**: This is a [`url.format()`](https://nodejs.org/api/url.html#url_url_format_urlobj "API documentation for the url.format method.") compatible object.
 
-````javascript
+```javascript
 osProxy.set({
     // Proxy configuration.
     hostname : 'example.com'.
@@ -34,21 +34,21 @@ osProxy.set({
 .then(() => {
     console.log('Proxy onfiguration has finished saving.');
 });
-````
+```
 
 At any time, you may retrieve the current proxy configuration.
-````javascript
+```javascript
 osProxy.get({
     device : 'Wi-Fi'
 })
 .then((config) => {
     console.log('Proxy config:', config);
 })
-````
+```
 
 Because proxies can also be set through system menus, `osProxy` has been made aware of the platform-specific configuration store and knows how to monitor its changes at the file system level. All of that is abstracted away into opt-in [signals](https://github.com/millermedeiros/js-signals/wiki/Comparison-between-different-Observer-Pattern-implementations "Documentation for signals.").
 
-````javascript
+```javascript
 // Register a listener for config store changes.
 osProxy.changed.always((event) => {
     console.log(
@@ -58,12 +58,12 @@ osProxy.changed.always((event) => {
 });
 // Begin monitoring the config store.
 osProxy.watch();
-````
+```
 
 It is just as easy to stop monitoring the config store.
-````javascript
+```javascript
 osProxy.unwatch();
-````
+```
 
 ## API
 | Method  | Arguments             | Returns                | Description                                      |
