@@ -13,10 +13,10 @@ trim_trailing_whitespace = true
 end_of_line = lf
 insert_final_newline = true
 
-# Special rules for Markdown
+# Markdown reserves trailing spaces for special use.
 [*.md]
 trim_trailing_whitespace = false
 
-# Matches the exact files either package.json or .travis.yml
-# [{package.json,.travis.yml}]
+# Respect npm's default spacing to make diffs from scripts less noisy.
+# [{package.json}]
 # indent_size = 2

@@ -1,17 +1,17 @@
-# Runtime data and log files
-log
-*.log
-pid
-*.pid
-
-# Build system output
-# Coverage directory used by tools like istanbul
-coverage
-# Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
-# Dependencies.
+# Dependencies are installed manually or using a build process, so they
+# can benefit from machine-specific compiling, etc.
 node_modules
 
-# User environment data
-.lock-wscript
+# Build artifacts are unique to each developer.
+build
+latest-build
+report
+
+# Log data is unique to each developer.
+log
+
+# Operating system data is unique to each developer.
 .DS_Store
+
+# IDE data is unique to each developer.
+.idea

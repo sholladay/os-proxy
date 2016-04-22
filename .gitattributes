@@ -74,6 +74,7 @@ Procfile        text
 # Leave line endings alone for these...
 
 # Compiled code and system files.
+*.pyc  binary
 *.dll  binary
 *.so   binary
 *.war  binary
@@ -96,4 +97,3 @@ Procfile        text
 *.zip   binary
 *.7z    binary
 *.ttf   binary
-*.pyc   binary

@@ -6,7 +6,8 @@
   "main": "index.js",
   "author": {
     "name": "Seth Holladay",
-    "url": "http://seth-holladay.com"
+    "url": "http://seth-holladay.com",
+    "email": "me@seth-holladay.com"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,7 +18,7 @@
   },
   "bugs": {
     "url": "https://github.com/sholladay/os-proxy/issues",
-    "email": "bugs@seth-holladay.com"
+    "email": "me@seth-holladay.com"
   },
   "license": "MPL-2.0",
   "directories": {
@@ -30,6 +31,7 @@
   "dependencies": {
     "adverb-signals": "1.0.0",
     "bluebird": "3.3.5",
+    "chai": "3.5.0",
     "chokidar": "1.4.3",
     "dangit": "0.2.3",
     "require-dir": "0.3.0",
