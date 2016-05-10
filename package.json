@@ -1,6 +1,6 @@
 {
   "name": "os-proxy",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Manage system-wide proxy settings.",
   "homepage": "https://github.com/sholladay/os-proxy",
   "main": "index.js",
