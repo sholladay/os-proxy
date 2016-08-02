@@ -10,7 +10,7 @@
     "email": "me@seth-holladay.com"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "xo"
   },
   "repository": {
     "type": "git",
@@ -37,11 +37,18 @@
     "require-dir": "0.3.0",
     "yamljs": "0.2.7"
   },
+  "devDependencies": {
+    "eslint-config-tidy": "^0.2.0",
+    "xo": "^0.16.0"
+  },
   "keywords": [
     "OS",
     "network",
     "proxy",
     "configuration",
     "config"
-  ]
+  ],
+  "xo": {
+    "extend": "tidy"
+  }
 }
