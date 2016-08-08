@@ -1,4 +1,4 @@
-# os-proxy
+# os-proxy [![Build status for os-proxy on Circle CI.](https://img.shields.io/circleci/project/sholladay/os-proxy/master.svg "Circle Build Status")](https://circleci.com/gh/sholladay/os-proxy "OS Proxy Builds")
 
 > Manage system-wide proxy settings.
 
@@ -17,7 +17,8 @@ npm install os-proxy --save
 ## Usage
 
 Get it into your program.
-```javascript
+
+```js
 const osProxy = require('os-proxy');
 ```
 
@@ -25,7 +26,7 @@ Set the system proxy.
 
 **Tip**: This is a [`url.format()`](https://nodejs.org/api/url.html#url_url_format_urlobj "API documentation for the url.format method.") compatible object.
 
-```javascript
+```js
 osProxy.set({
     // Proxy configuration.
     hostname : 'example.com'.
@@ -37,7 +38,8 @@ osProxy.set({
 ```
 
 At any time, you may retrieve the current proxy configuration.
-```javascript
+
+```js
 osProxy.get({
     device : 'Wi-Fi'
 })
@@ -48,7 +50,7 @@ osProxy.get({
 
 Because proxies can also be set through system menus, `osProxy` has been made aware of the platform-specific configuration store and knows how to monitor its changes at the file system level. All of that is abstracted away into opt-in [signals](https://github.com/millermedeiros/js-signals/wiki/Comparison-between-different-Observer-Pattern-implementations "Documentation for signals.").
 
-```javascript
+```js
 // Register a listener for config store changes.
 osProxy.changed.always((event) => {
     console.log(
@@ -61,11 +63,13 @@ osProxy.watch();
 ```
 
 It is just as easy to stop monitoring the config store.
-```javascript
+
+```js
 osProxy.unwatch();
 ```
 
 ## API
+
 | Method  | Arguments             | Returns                | Description                                      |
 |---------|-----------------------|------------------------|--------------------------------------------------|
 | `get`     | Proxy Config (device) | Promise (Proxy Config) | Retrieve the currently set proxy.                |
@@ -88,6 +92,7 @@ See our [contributing guidelines](https://github.com/sholladay/os-proxy/blob/mas
 5. [Submit a pull request](https://github.com/sholladay/os-proxy/compare "Submit code to this project for review.").
 
 ## License
+
 [MPL-2.0](https://github.com/sholladay/os-proxy/blob/master/LICENSE "The license for os-proxy.") © [Seth Holladay](http://seth-holladay.com "Author of os-proxy.")
 
 Go make something, dang it.

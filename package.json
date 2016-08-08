@@ -20,6 +20,9 @@
     "url": "https://github.com/sholladay/os-proxy/issues",
     "email": "me@seth-holladay.com"
   },
+  "engines": {
+    "node": ">=6"
+  },
   "license": "MPL-2.0",
   "directories": {
     "lib": "./lib"
@@ -38,8 +41,8 @@
     "yamljs": "0.2.7"
   },
   "devDependencies": {
-    "eslint-config-tidy": "^0.2.0",
-    "xo": "^0.16.0"
+    "eslint-config-tidy": "0.3.0",
+    "xo": "0.16.0"
   },
   "keywords": [
     "OS",

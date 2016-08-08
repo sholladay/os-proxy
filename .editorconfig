@@ -9,14 +9,10 @@ root = true
 charset = utf-8
 indent_style = space
 indent_size = 4
-trim_trailing_whitespace = true
 end_of_line = lf
+trim_trailing_whitespace = true
 insert_final_newline = true
 
-# Markdown reserves trailing spaces for special use.
-[*.md]
-trim_trailing_whitespace = false
-
 # Respect npm's default spacing to make diffs from scripts less noisy.
-# [{package.json}]
-# indent_size = 2
+[{package.json,*.yml}]
+indent_size = 2
