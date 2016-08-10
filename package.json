@@ -32,17 +32,17 @@
     "index.js"
   ],
   "dependencies": {
-    "adverb-signals": "1.0.0",
-    "bluebird": "3.3.5",
-    "chai": "3.5.0",
-    "chokidar": "1.4.3",
-    "dangit": "0.2.3",
-    "require-dir": "0.3.0",
-    "yamljs": "0.2.7"
+    "adverb-signals": "^1.0.0",
+    "bluebird": "^3.3.5",
+    "chai": "^3.5.0",
+    "chokidar": "^1.4.3",
+    "dangit": "^0.2.3",
+    "require-dir": "^0.3.0",
+    "yamljs": "^0.2.7"
   },
   "devDependencies": {
-    "eslint-config-tidy": "0.3.0",
-    "xo": "0.16.0"
+    "eslint-config-tidy": "^0.3.0",
+    "xo": "^0.16.0"
   },
   "keywords": [
     "OS",
