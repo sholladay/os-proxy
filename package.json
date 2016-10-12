@@ -28,8 +28,8 @@
     "lib": "./lib"
   },
   "files": [
-    "lib",
-    "index.js"
+    "index.js",
+    "lib"
   ],
   "dependencies": {
     "adverb-signals": "^1.0.0",
