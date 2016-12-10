@@ -77,29 +77,13 @@ const cliArg = {
     }
 }[platform];
 
-// Promise helpers.
-
-// Create shell command error handlers.
-const handleError = (api) => {
-    const onError = (err) => {
-        const code = Number(err.message);
-        const reason = code ? `Exit code ${code}.` : 'No output to parse.';
-
-        throw new Error(
-            `Unable to ${api.name} proxy configuration. ${reason}`
-        );
-    };
-
-    return onError;
-};
-
 // Turn on the currently configured proxy.
 const enable = () => {
     return exec(
         cliArg.enable,
         device,
         'on'
-    ).catch(handleError(enable));
+    );
 };
 
 // Turn off the currently configured proxy, but keep it in the
@@ -109,50 +93,35 @@ const disable = () => {
         cliArg.disable,
         device,
         'off'
-    ).catch(handleError(disable));
+    );
 };
 
 // Retrieve the currently configured proxy.
-const get = (option) => {
-    assert.isObject(option);
+const get = async (option) => {
+    const config = Object.assign({}, option);
 
-    if (!option.device || typeof option.device !== 'string') {
-        option.device = device;
+    if (!config.device || typeof config.device !== 'string') {
+        config.device = device;
     }
 
-    // Helper for screening the output of a shell command. Useful when we need to
-    // parse some output.
-    const assertOutput = (output) => {
-        if (output) {
-            return output;
-        }
+    const output = await exec(
+        cliArg.get,
+        config.device
+    );
 
-        // Error with the exit code of the shell command. We know it is 0 because
-        // shell errors take a different code path. We will catch and re-throw
-        // a more friendly error later on.
-        throw new Error(0);
+    if (!output) {
+        throw new TypeError(`Unable to get proxy configuration. No output to parse.`);
+    }
+
+    const parsed = YAML.parse(output);
+
+    // OS X answers with less than ideal property names.
+    // We normalize them here before anyone sees it.
+    return {
+        hostname : parsed.Server,
+        port     : parsed.Port,
+        enabled  : isOn(parsed.Enabled)
     };
-
-    // Parser for shell output when we ask the OS for the current proxy config.
-    const onGet = (output) => {
-        const parsed = YAML.parse(output);
-
-        // OS X answers with less than ideal property names.
-        // We normalize them here before anyone sees it.
-        return {
-            hostname : parsed.Server,
-            port     : parsed.Port,
-            enabled  : isOn(parsed.Enabled)
-        };
-    };
-
-    return exec(
-            cliArg.get,
-            option.device
-        )
-        .then(assertOutput)
-        .catch(handleError(get))
-        .then(onGet);
 };
 
 // Set and optionally turn on a new proxy configuration.
@@ -163,7 +132,7 @@ const get = (option) => {
 //     port     : 8000,
 //     enabled  : true
 // }
-const set = (option) => {
+const set = async (option) => {
     const config = Object.assign(
         {
             enabled : true,
@@ -182,31 +151,24 @@ const set = (option) => {
         `config.port must be provided.`
     );
 
-    const promise = exec(
+    await exec(
         cliArg.set,
         quote(config.device),
         quote(config.hostname),
-        option.port
-    ).catch(handleError(set));
-
-    if (config.enabled || typeof config.enabled === 'undefined') {
-        return promise;
-    }
+        config.port
+    );
 
     // OS X turns on the proxy by default. But users may want to
     // do this at a later time or not at all.
-    return promise.then(disable);
+    if (!config.enabled && typeof config.enabled !== 'undefined') {
+        return disable();
+    }
 };
 
 // Toggle the currently configured proxy between on and off.
-const toggle = () => {
-    const choose = (proxy) => {
-        return proxy.enabled ? disable() : enable();
-    };
-
-    return get()
-        .then(choose)
-        .catch(handleError(toggle));
+const toggle = async () => {
+    const proxy = await get();
+    return proxy.enabled ? disable() : enable();
 };
 
 // Turn off and wipeout the currently configured proxy
@@ -216,7 +178,7 @@ const clear = () => {
         hostname : '',
         port     : '',
         enabled  : false
-    }).catch(handleError(clear));
+    });
 };
 
 // File system watching helpers.
@@ -258,14 +220,11 @@ const watch = (fp, ...rest) => {
 
 // Deactivate an existing file system watcher.
 const unwatch = (fp, ...rest) => {
-    // If we are not currently watching, there is nothing to do.
-    if (!watcher) {
-        return;
+    if (watcher) {
+        const filePath = typeof fp === 'undefined' ? configPath : fp;
+
+        return watcher.unwatch(filePath, ...rest);
     }
-
-    const filePath = typeof fp === 'undefined' ? configPath : fp;
-
-    return watcher.unwatch(filePath, ...rest);
 };
 
 module.exports = {
