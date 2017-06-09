@@ -2,16 +2,6 @@
 # can benefit from machine-specific compiling, etc.
 node_modules
 
-# Build artifacts are unique to each developer.
-build
-latest-build
-report
-
-# Log data is unique to each developer.
-log
-
-# Operating system data is unique to each developer.
-.DS_Store
-
-# IDE data is unique to each developer.
-.idea
+# Minor updates for dependencies, including security patches, should be
+# installed immediately, instead of being locked down.
+package-lock.json
