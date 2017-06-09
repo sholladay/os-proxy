@@ -8,12 +8,9 @@ const Signal = require('adverb-signals');
 const YAML = require('yamljs');
 const chokidar = require('chokidar');
 const { assert } = require('chai');
-const dangit = require('dangit');
-const event = require('./lib/event');
 const isOn = require('./lib/is-on');
 const exec = require('./lib/exec');
 
-const { space, quote } = dangit;
 const { platform } = process;
 // The network interface to use as the context for configuration.
 const device = 'Wi-Fi';
@@ -63,17 +60,14 @@ const cliArg = {
         get     : '',
         set     : '',
         enable  : '',
-        disable : space(
+        disable : [
             'add',
-            quote('HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings'),
-            '/v',
-            'ProxyEnable',
-            '/t',
-            'REG_DWORD',
-            '/d',
-            '0',
+            '"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings"',
+            '/v ProxyEnable',
+            '/t REG_DWORD',
+            '/d 0',
             '/f'
-        )
+        ].join(' ')
     }
 }[platform];
 
@@ -141,20 +135,13 @@ const set = async (option) => {
         option
     );
 
-    assert.isDefined(
-        config.hostname,
-        `config.hostname must be provided.`
-    );
-
-    assert.isDefined(
-        config.port,
-        `config.port must be provided.`
-    );
+    assert.isDefined(config.hostname, `A hostname must be provided.`);
+    assert.isDefined(config.port, `A port must be provided.`);
 
     await exec(
         cliArg.set,
-        quote(config.device),
-        quote(config.hostname),
+        `"${config.device}"`,
+        `"${config.hostname}"`,
         config.port
     );
 
@@ -186,12 +173,10 @@ const clear = () => {
 const changed = new Signal();
 
 // Handler for file system changes related to proxy configuration.
-const onChange = (path) => {
-    changed.emit(
-        new event.Change({
-            path
-        })
-    );
+const onChange = (filePath) => {
+    changed.emit({
+        path : filePath
+    });
 };
 
 // File system watcher that is aware of changes to the system proxy settings
@@ -228,13 +213,13 @@ const unwatch = (fp, ...rest) => {
 };
 
 module.exports = {
-    changed,
     get,
     set,
     enable,
     disable,
     toggle,
     clear,
+    changed,
     watch,
     unwatch
 };
