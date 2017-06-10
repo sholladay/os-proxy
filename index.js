@@ -174,9 +174,7 @@ const changed = new Signal();
 
 // Handler for file system changes related to proxy configuration.
 const onChange = (filePath) => {
-    changed.emit({
-        path : filePath
-    });
+    changed.emit({ path : filePath });
 };
 
 // File system watcher that is aware of changes to the system proxy settings
@@ -194,10 +192,9 @@ const watch = (fp, ...rest) => {
         watcher.add(filePath, ...rest);
     }
     else {
-        watcher = chokidar.watch(filePath, ...rest).on(
-            'change',
-            onChange
-        );
+        watcher = chokidar
+            .watch(filePath, ...rest)
+            .on('change', onChange);
     }
 
     return watcher;
@@ -207,7 +204,6 @@ const watch = (fp, ...rest) => {
 const unwatch = (fp, ...rest) => {
     if (watcher) {
         const filePath = typeof fp === 'undefined' ? configPath : fp;
-
         return watcher.unwatch(filePath, ...rest);
     }
 };
