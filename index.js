@@ -7,7 +7,7 @@ const YAML = require('yamljs');
 const chokidar = require('chokidar');
 const { assert } = require('chai');
 const isOn = require('./lib/is-on');
-const exec = require('./lib/exec');
+const manage = require('./lib/manage');
 
 const { platform } = process;
 // The network interface to use as the context for configuration.
@@ -35,39 +35,6 @@ const configPath = {
     win32  : ''
 }[platform];
 
-const cliArg = {
-    darwin : {
-        get     : '-getwebproxy',
-        set     : '-setwebproxy',
-        enable  : '-setwebproxystate',
-        disable : '-setwebproxystate'
-    },
-    win32 : {
-        get     : '',
-        set     : '',
-        enable  : '',
-        disable : [
-            'add',
-            '"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings"',
-            '/v ProxyEnable',
-            '/t REG_DWORD',
-            '/d 0',
-            '/f'
-        ].join(' ')
-    }
-}[platform];
-
-// Turn on the currently configured proxy.
-const enable = () => {
-    return exec(cliArg.enable, device, 'on');
-};
-
-// Turn off the currently configured proxy, but keep it in the
-// operating system's data store.
-const disable = () => {
-    return exec(cliArg.disable, device, 'off');
-};
-
 // Retrieve the currently configured proxy.
 const get = async (option) => {
     const config = Object.assign({}, option);
@@ -76,7 +43,7 @@ const get = async (option) => {
         config.device = device;
     }
 
-    const output = await exec(cliArg.get, config.device);
+    const output = await manage.get(config.device);
 
     if (!output) {
         throw new TypeError(`Unable to get proxy configuration. No output to parse.`);
@@ -112,13 +79,24 @@ const set = async (option) => {
     assert.isDefined(config.hostname, `A hostname must be provided.`);
     assert.isDefined(config.port, `A port must be provided.`);
 
-    await exec(cliArg.set, `"${config.device}"`, `"${config.hostname}"`, config.port);
+    await manage.set(config.device, config.hostname, config.port);
 
     // OS X turns on the proxy by default. But users may want to
     // do this at a later time or not at all.
     if (!config.enabled && typeof config.enabled !== 'undefined') {
         return disable();
     }
+};
+
+// Turn on the currently configured proxy.
+const enable = () => {
+    return manage.enable(device, 'on');
+};
+
+// Turn off the currently configured proxy, but keep it in the
+// operating system's database.
+const disable = () => {
+    return manage.disable(device, 'off');
 };
 
 // Toggle the currently configured proxy between on and off.
@@ -128,7 +106,7 @@ const toggle = async () => {
 };
 
 // Turn off and wipeout the currently configured proxy
-// from the operating system's data store.
+// from the operating system's database.
 const clear = () => {
     return set({
         hostname : '',
