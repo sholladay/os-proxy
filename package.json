@@ -44,10 +44,16 @@
   },
   "keywords": [
     "OS",
+    "system",
     "network",
+    "networking",
+    "http",
+    "https",
     "proxy",
-    "configuration",
-    "config"
+    "setting",
+    "settings",
+    "config",
+    "configuration"
   ],
   "xo": {
     "extend": "tidy"
