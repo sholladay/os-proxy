@@ -10,7 +10,7 @@
     "email": "me@seth-holladay.com"
   },
   "scripts": {
-    "test": "xo"
+    "test": "xo && ava"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "email": "me@seth-holladay.com"
   },
   "engines": {
-    "node": ">=7"
+    "node": ">=7.6"
   },
   "license": "MPL-2.0",
   "directories": {
