@@ -70,16 +70,88 @@ osProxy.unwatch();
 
 ## API
 
-| Method  | Arguments             | Returns                | Description                                      |
-|---------|-----------------------|------------------------|--------------------------------------------------|
-| `get`     | Proxy Config (device) | Promise (Proxy Config) | Retrieve the currently set proxy.                |
-| `set`     | Proxy Config          | Promise                | Update the currently set proxy.                  |
-| `enable`  |                       | Promise                | Turn on the currently set proxy.                 |
-| `disable` |                       | Promise                | Turn off the currently set proxy.                |
-| `toggle`  |                       | Promise                | Reverse on/off state of the currently set proxy. |
-| `remove`  |                       | Promise                | Erase the currently set proxy.                   |
-| `watch`   | Watch Config          | Watcher (singleton)    | Start monitoring the proxy config store.         |
-| `unwatch` | Path(s)               | Watcher (singleton)    | Stop monitoring the proxy config store.          |
+### get(option)
+
+Returns a promise for the current system configuration.
+
+#### option
+
+Type: `object`
+
+##### device
+
+Type: `string`
+Default: `Wi-Fi`
+
+The device whose proxy configuration should be returned.
+
+### set(option)
+
+Returns a promise for modifying the system configuration.
+
+#### option
+
+Type: `object`
+
+##### hostname
+
+Type: `string`
+
+The hostname of the proxy to use.
+
+##### port
+
+Type: `number`
+
+The port number of the proxy to use.
+
+##### device
+
+Type: `string`
+Default: `Wi-Fi`
+
+The device that should use the proxy.
+
+##### enabled
+
+Type: `boolean`
+Default: `true`
+
+Whether the proxy should be enabled or disabled after the configuration is saved.
+
+### enable()
+
+Returns a promise for turning on proxy mode.
+
+### disable()
+
+Returns a promise for turning off proxy mode.
+
+### toggle()
+
+Returns a promise for reversing the on/off state of proxy mode.
+
+### clear()
+
+Returns a promise for erasing the configuration data and disabling proxy mode.
+
+### changed
+
+Type: [`Signal`](https://github.com/sholladay/adverb-signals)
+
+An event emitter with methods like `.always()` and `.never()` for adding and removing listeners that are called when changes to the system configuration are detected, either via this library or by other means. You must call `watch()` in order to begin receiving events.
+
+### watch(path, option)
+
+Start monitoring for changes to the system configuration. Events will be emitted as a `changed` signal.
+
+Similar to [`chokidar.watch()`](https://github.com/paulmillr/chokidar#api), except `path` defaults to the operating system's proxy configuration file.
+
+### unwatch(path)
+
+Stop monitoring for changes to the system configuration. Events will no longer be emitted.
+
+Similar to [`chokidar.unwatch()`](https://github.com/paulmillr/chokidar#api), except `path` defaults to the operating system's proxy configuration file.
 
 ## Contributing
 
