@@ -1,6 +1,4 @@
-// API to modify your operating system's proxy settings.
-
-// Similar to: https://github.com/helloyou2012/system-proxy
+// Modify your operating system's proxy settings.
 
 'use strict';
 
@@ -15,31 +13,19 @@ const { platform } = process;
 // The network interface to use as the context for configuration.
 const device = 'Wi-Fi';
 
-// NOTE: No Windows support yet. Pull requests welcome!
-
-// Inspiration fo Windows support:
+// Inspiration for Windows support:
 // http://www.ehow.com/how_6887864_do-proxy-settings-command-prompt_.html
+// https://github.com/helloyou2012/system-proxy
 if (platform !== 'darwin') {
-    throw new Error(
-        `Support for ${platform} is not ready yet. Pull requests welcome!`
-    );
+    throw new Error(`Support for ${platform} is not ready yet. Pull requests welcome!`);
 }
 
-// In these examples, "Wi-Fi" could be other interfaces like "Built-In Ethernet".
+// In these examples, "Wi-Fi" could be other devices like "Built-In Ethernet".
 
-// Determine whether an interface is on.
+// Determine whether a device is on.
 // networksetup -getnetworkserviceenabled Wi-Fi
 
-// Determine whether a proxy is on.
-// networksetup -getwebproxy Wi-Fi
-
-// Set a proxy (also turns it on).
-// networksetup -setwebproxy Wi-Fi localhost 8000
-
-// Turn a proxy on or off.
-// networksetup -setwebproxystate Wi-Fi off
-
-// Get a newline seperated list of interfaces.
+// Get a newline seperated list of devices.
 // networksetup -listallnetworkservices
 
 // Database for proxy configuration. These may get modified by any program at any time,
@@ -73,21 +59,13 @@ const cliArg = {
 
 // Turn on the currently configured proxy.
 const enable = () => {
-    return exec(
-        cliArg.enable,
-        device,
-        'on'
-    );
+    return exec(cliArg.enable, device, 'on');
 };
 
 // Turn off the currently configured proxy, but keep it in the
 // operating system's data store.
 const disable = () => {
-    return exec(
-        cliArg.disable,
-        device,
-        'off'
-    );
+    return exec(cliArg.disable, device, 'off');
 };
 
 // Retrieve the currently configured proxy.
@@ -98,10 +76,7 @@ const get = async (option) => {
         config.device = device;
     }
 
-    const output = await exec(
-        cliArg.get,
-        config.device
-    );
+    const output = await exec(cliArg.get, config.device);
 
     if (!output) {
         throw new TypeError(`Unable to get proxy configuration. No output to parse.`);
@@ -121,7 +96,6 @@ const get = async (option) => {
 // Set and optionally turn on a new proxy configuration.
 // Example config:
 // {
-//     protocol : 'https',
 //     hostname : 'localhost',
 //     port     : 8000,
 //     enabled  : true
@@ -138,12 +112,7 @@ const set = async (option) => {
     assert.isDefined(config.hostname, `A hostname must be provided.`);
     assert.isDefined(config.port, `A port must be provided.`);
 
-    await exec(
-        cliArg.set,
-        `"${config.device}"`,
-        `"${config.hostname}"`,
-        config.port
-    );
+    await exec(cliArg.set, `"${config.device}"`, `"${config.hostname}"`, config.port);
 
     // OS X turns on the proxy by default. But users may want to
     // do this at a later time or not at all.
