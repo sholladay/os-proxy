@@ -153,6 +153,10 @@ Stop monitoring for changes to the system configuration. Events will no longer b
 
 Similar to [`chokidar.unwatch()`](https://github.com/paulmillr/chokidar#api), except `path` defaults to the operating system's proxy configuration file.
 
+## CLI
+
+See [os-proxy-cli](https://github.com/sholladay/os-proxy-cli) to use this on the command line.
+
 ## Contributing
 
 See our [contributing guidelines](https://github.com/sholladay/os-proxy/blob/master/CONTRIBUTING.md "The guidelines for participating in this project.") for more details.
