@@ -28,12 +28,16 @@ if (platform !== 'darwin') {
 // Get a newline seperated list of devices.
 // networksetup -listallnetworkservices
 
-// Database for proxy configuration. These may get modified by any program at any time,
-// and so need to be watched to stay fully up to date.
-const configPath = {
-    darwin : '/Library/Preferences/SystemConfiguration/preferences.plist',
-    win32  : ''
-}[platform];
+// Turn on the currently configured proxy.
+const enable = () => {
+    return manage.enable(device, 'on');
+};
+
+// Turn off the currently configured proxy, but keep it in the
+// operating system's database.
+const disable = () => {
+    return manage.disable(device, 'off');
+};
 
 // Retrieve the currently configured proxy.
 const get = async (option) => {
@@ -88,17 +92,6 @@ const set = async (option) => {
     }
 };
 
-// Turn on the currently configured proxy.
-const enable = () => {
-    return manage.enable(device, 'on');
-};
-
-// Turn off the currently configured proxy, but keep it in the
-// operating system's database.
-const disable = () => {
-    return manage.disable(device, 'off');
-};
-
 // Toggle the currently configured proxy between on and off.
 const toggle = async () => {
     const proxy = await get();
@@ -116,6 +109,13 @@ const clear = () => {
 };
 
 // File system watching helpers.
+
+// Database for proxy configuration. These may get modified by any program at any time,
+// and so need to be watched to stay fully up to date.
+const configPath = {
+    darwin : '/Library/Preferences/SystemConfiguration/preferences.plist',
+    win32  : ''
+}[platform];
 
 const changed = new Signal();
 

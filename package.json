@@ -33,15 +33,15 @@
   ],
   "dependencies": {
     "adverb-signals": "^1.0.0",
-    "chai": "^3.5.0",
+    "chai": "^4.1.2",
     "chokidar": "^1.4.3",
     "dangit": "^0.3.1",
-    "yamljs": "^0.2.7"
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "ava": "^0.19.1",
-    "eslint-config-tidy": "^0.4.0",
-    "xo": "^0.17.1"
+    "ava": "^0.22.0",
+    "eslint-config-tidy": "^0.5.0",
+    "xo": "^0.18.2"
   },
   "keywords": [
     "OS",
