@@ -1,6 +1,6 @@
-# os-proxy [![Build status for os-proxy on Circle CI.](https://img.shields.io/circleci/project/sholladay/os-proxy/master.svg "Circle Build Status")](https://circleci.com/gh/sholladay/os-proxy "OS Proxy Builds")
+# os-proxy [![Build status for os-proxy](https://img.shields.io/circleci/project/sholladay/os-proxy/master.svg "Build Status")](https://circleci.com/gh/sholladay/os-proxy "Builds")
 
-> Manage system-wide proxy settings.
+> Manage system-wide proxy settings
 
 ## Why?
 
@@ -80,7 +80,7 @@ Type: `object`
 
 ##### device
 
-Type: `string`
+Type: `string`<br>
 Default: `Wi-Fi`
 
 The device whose proxy configuration should be returned.
@@ -107,14 +107,14 @@ The port number of the proxy to use.
 
 ##### device
 
-Type: `string`
+Type: `string`<br>
 Default: `Wi-Fi`
 
 The device that should use the proxy.
 
 ##### enabled
 
-Type: `boolean`
+Type: `boolean`<br>
 Default: `true`
 
 Whether the proxy should be enabled or disabled after the configuration is saved.
@@ -159,7 +159,7 @@ See [os-proxy-cli](https://github.com/sholladay/os-proxy-cli) to use this on the
 
 ## Contributing
 
-See our [contributing guidelines](https://github.com/sholladay/os-proxy/blob/master/CONTRIBUTING.md "The guidelines for participating in this project.") for more details.
+See our [contributing guidelines](https://github.com/sholladay/os-proxy/blob/master/CONTRIBUTING.md "Guidelines for participating in this project") for more details.
 
 1. [Fork it](https://github.com/sholladay/os-proxy/fork).
 2. Make a feature branch: `git checkout -b my-new-feature`
@@ -169,6 +169,6 @@ See our [contributing guidelines](https://github.com/sholladay/os-proxy/blob/mas
 
 ## License
 
-[MPL-2.0](https://github.com/sholladay/os-proxy/blob/master/LICENSE "The license for os-proxy.") © [Seth Holladay](http://seth-holladay.com "Author of os-proxy.")
+[MPL-2.0](https://github.com/sholladay/os-proxy/blob/master/LICENSE "License for os-proxy") © [Seth Holladay](http://seth-holladay.com "Author of os-proxy")
 
 Go make something, dang it.
