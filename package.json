@@ -1,62 +1,60 @@
 {
-  "name": "os-proxy",
-  "version": "0.6.2",
-  "description": "Manage system-wide proxy settings.",
-  "homepage": "https://github.com/sholladay/os-proxy",
-  "main": "index.js",
-  "author": {
-    "name": "Seth Holladay",
-    "url": "http://seth-holladay.com",
-    "email": "me@seth-holladay.com"
-  },
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:sholladay/os-proxy.git"
-  },
-  "bugs": {
-    "url": "https://github.com/sholladay/os-proxy/issues",
-    "email": "me@seth-holladay.com"
-  },
-  "engines": {
-    "node": ">=7.6"
-  },
-  "license": "MPL-2.0",
-  "directories": {
-    "lib": "./lib"
-  },
-  "files": [
-    "index.js",
-    "lib"
-  ],
-  "dependencies": {
-    "adverb-signals": "^1.0.0",
-    "chai": "^4.1.2",
-    "chokidar": "^1.4.3",
-    "dangit": "^0.3.1",
-    "yamljs": "^0.3.0"
-  },
-  "devDependencies": {
-    "ava": "^0.22.0",
-    "eslint-config-tidy": "^0.5.0",
-    "xo": "^0.18.2"
-  },
-  "keywords": [
-    "OS",
-    "system",
-    "network",
-    "networking",
-    "http",
-    "https",
-    "proxy",
-    "setting",
-    "settings",
-    "config",
-    "configuration"
-  ],
-  "xo": {
-    "extend": "tidy"
-  }
+    "name": "os-proxy",
+    "version": "0.6.2",
+    "description": "Manage system-wide proxy settings",
+    "homepage": "https://github.com/sholladay/os-proxy",
+    "main": "index.js",
+    "author": {
+        "name": "Seth Holladay",
+        "url": "https://seth-holladay.com",
+        "email": "me@seth-holladay.com"
+    },
+    "scripts": {
+        "test": "xo && ava"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:sholladay/os-proxy.git"
+    },
+    "bugs": {
+        "url": "https://github.com/sholladay/os-proxy/issues",
+        "email": "me@seth-holladay.com"
+    },
+    "engines": {
+        "node": ">=7.6"
+    },
+    "license": "MPL-2.0",
+    "files": [
+        "lib",
+        "index.js"
+    ],
+    "dependencies": {
+        "adverb-signals": "^1.0.0",
+        "chai": "^4.1.2",
+        "chokidar": "^1.4.3",
+        "yamljs": "^0.3.0"
+    },
+    "devDependencies": {
+        "ava": "^0.22.0",
+        "eslint-config-tidy": "^0.5.0",
+        "xo": "^0.18.2"
+    },
+    "keywords": [
+        "OS",
+        "system",
+        "network",
+        "networking",
+        "http",
+        "https",
+        "proxy",
+        "tunnel",
+        "state",
+        "setting",
+        "settings",
+        "config",
+        "configuration"
+    ],
+    "xo": {
+        "extend": "tidy"
+    }
 }

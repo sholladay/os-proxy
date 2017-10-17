@@ -2,7 +2,7 @@
 
 ## Issues
 
-**Ask questions** on [Stack Overflow](https://stackoverflow.com/ "Stack Overflow is a question and answer forum."). They will get more visibility and we can all enjoy an optimized Q&A experience. In the event that you don't get a satisfactory answer, it is okay to file an issue. Please post a link to your Stack Overflow question.
+**Ask questions** on [Stack Overflow](https://stackoverflow.com/ "Question and answer forum"). They will get more visibility and we can all enjoy an optimized Q&A experience. In the event that you don't get a satisfactory answer, it is okay to file an issue. Please post a link to your Stack Overflow question.
 
 **Bug reports** must include reproducible steps and supporting details, such as screenshots. We will be able to fix the problem faster if you supply a failing test case in a pull request.
 
@@ -10,7 +10,7 @@
 
 ## Pull Requests
 
-We love [PRs](https://help.github.com/articles/using-pull-requests/ "How to use pull requests on GitHub.")! ❤️ The more the merrier, even for simple typos.
+We love [PRs](https://help.github.com/articles/using-pull-requests/ "How to use pull requests on GitHub")! ❤️ The more the merrier, even for simple typos.
 
 Any non-trivial pull request may earn you commit privileges.
 
