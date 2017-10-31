@@ -1,5 +1,6 @@
 machine:
-  node:
-    version: 8
+  # Circle does not support setting Node version on macOS for some reason
+  # node:
+  #   version: 8
   xcode:
     version: 9.0
