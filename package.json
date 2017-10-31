@@ -35,7 +35,7 @@
         "yamljs": "^0.3.0"
     },
     "devDependencies": {
-        "ava": "^0.22.0",
+        "ava": "^0.23.0",
         "eslint-config-tidy": "^0.5.0",
         "xo": "^0.18.2"
     },
