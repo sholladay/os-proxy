@@ -3,15 +3,13 @@
 'use strict';
 
 const Signal = require('adverb-signals');
-const YAML = require('yamljs');
+const yaml = require('yamljs');
 const chokidar = require('chokidar');
-const { assert } = require('chai');
+const joi = require('joi');
 const isOn = require('./lib/is-on');
 const manage = require('./lib/manage');
 
 const { platform } = process;
-// The network interface to use as the context for configuration.
-const device = 'Wi-Fi';
 
 // Inspiration for Windows support:
 // http://www.ehow.com/how_6887864_do-proxy-settings-command-prompt_.html
@@ -28,24 +26,30 @@ if (platform !== 'darwin') {
 // Get a newline seperated list of devices.
 // networksetup -listallnetworkservices
 
+// Get the user's preferred network device
+const getDevice = async () => {
+    const output = await manage.device();
+    return output.match(/: .+/)[0].substring(': '.length);
+};
+
 // Turn on the currently configured proxy.
-const enable = () => {
-    return manage.enable(device, 'on');
+const enable = async () => {
+    return manage.enable(await getDevice(), 'on');
 };
 
 // Turn off the currently configured proxy, but keep it in the
 // operating system's database.
-const disable = () => {
-    return manage.disable(device, 'off');
+const disable = async () => {
+    return manage.disable(await getDevice(), 'off');
 };
 
 // Retrieve the currently configured proxy.
-const get = async (option) => {
-    const config = Object.assign({}, option);
-
-    if (!config.device || typeof config.device !== 'string') {
-        config.device = device;
-    }
+const get = async (input) => {
+    const option = Object.assign({}, input);
+    option.device = option.device || await getDevice();
+    const config = joi.attempt(option, joi.object({
+        device   : joi.string().required()
+    }).required());
 
     const output = await manage.get(config.device);
 
@@ -53,7 +57,7 @@ const get = async (option) => {
         throw new TypeError(`Unable to get proxy configuration. No output to parse.`);
     }
 
-    const parsed = YAML.parse(output);
+    const parsed = yaml.parse(output);
 
     // OS X answers with less than ideal property names.
     // We normalize them here before anyone sees it.
@@ -65,23 +69,15 @@ const get = async (option) => {
 };
 
 // Set and optionally turn on a new proxy configuration.
-// Example config:
-// {
-//     hostname : 'localhost',
-//     port     : 8000,
-//     enabled  : true
-// }
-const set = async (option) => {
-    const config = Object.assign(
-        {
-            enabled : true,
-            device
-        },
-        option
-    );
-
-    assert.isDefined(config.hostname, `A hostname must be provided.`);
-    assert.isDefined(config.port, `A port must be provided.`);
+const set = async (input) => {
+    const option = Object.assign({}, input);
+    option.device = option.device || await getDevice();
+    const config = joi.attempt(option, joi.object({
+        device   : joi.string().required(),
+        hostname : joi.string().required().hostname(),
+        port     : joi.number().required().positive().integer().min(0).max(65535),
+        enabled  : joi.boolean().optional().default(true)
+    }).required());
 
     await manage.set(config.device, config.hostname, config.port);
 
@@ -119,11 +115,6 @@ const configPath = {
 
 const changed = new Signal();
 
-// Handler for file system changes related to proxy configuration.
-const onChange = (filePath) => {
-    changed.emit({ path : filePath });
-};
-
 // File system watcher that is aware of changes to the system proxy settings
 // caused by any application.
 let watcher;
@@ -131,7 +122,6 @@ let watcher;
 // Activate a file system watcher, which will be notified about changes to the
 // OS preferences, regardless of who makes the change.
 const watch = (fp, ...rest) => {
-    // By default, watch the platform-specific config store.
     const filePath = typeof fp === 'undefined' ? configPath : fp;
 
     // If we are already watching, just add to the current set.
@@ -141,7 +131,9 @@ const watch = (fp, ...rest) => {
     else {
         watcher = chokidar
             .watch(filePath, ...rest)
-            .on('change', onChange);
+            .on('change', (pathStr) => {
+                changed.emit({ path : pathStr });
+            });
     }
 
     return watcher;
