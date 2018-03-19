@@ -30,14 +30,14 @@
     ],
     "dependencies": {
         "adverb-signals": "^1.0.0",
-        "chokidar": "^1.4.3",
+        "chokidar": "^2.0.2",
         "joi": "^13.0.1",
         "yamljs": "^0.3.0"
     },
     "devDependencies": {
-        "ava": "^0.23.0",
-        "eslint-config-tidy": "^0.5.0",
-        "xo": "^0.18.2"
+        "ava": "^1.0.0-beta.3",
+        "eslint-config-tidy": "^0.6.2",
+        "xo": "^0.20.3"
     },
     "keywords": [
         "OS",
